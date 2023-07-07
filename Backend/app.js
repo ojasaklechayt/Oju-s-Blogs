@@ -9,14 +9,13 @@ dotenv.config();
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://oju-blogs.vercel.app');
-  next();
-});
-
-app.use(cors());
-
 app.use(express.json());
+
+app.use(cors({
+  origin: 'https://oju-blogs.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use("/api/user", router);
 app.use("/api/blog", blogRouter);
