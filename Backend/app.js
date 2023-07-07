@@ -9,12 +9,12 @@ dotenv.config();
 
 const app = express();
 
-const corsOptions = {
-  origin: "https://oju-blogs.vercel.app",
-  optionsSuccessStatus: 200,
-};
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://oju-blogs.vercel.app');
+  next();
+});
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 
