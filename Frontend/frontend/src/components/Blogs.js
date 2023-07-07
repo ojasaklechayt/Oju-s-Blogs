@@ -6,7 +6,7 @@ const Blogs = () => {
   const [blogs, setBlogs] = useState();
   const sendRequest = async () => {
     const res = await axios
-      .get("http://localhost:5000/api/blog")
+      .get("https://oju-s-blogs.vercel.app/api/blog")
       .catch((err) => console.log(err));
     const data = await res.data;
     return data;
