@@ -8,7 +8,9 @@ import dotenv from "dotenv";
 dotenv.config();
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://oju-blogs.vercel.app'
+}));
 app.use(express.json());
 app.use("/api/user", router);
 app.use("/api/blog", blogRouter);
