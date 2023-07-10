@@ -14,7 +14,7 @@ app.use("/api/user", router);
 app.use("/api/blog", blogRouter);
 
 mongoose
-  .connect(mongodb+srv://blogadmin:blogadmin@cluster0.qgghli6.mongodb.net/Blog?retryWrites=true&w=majority, {
+  .connect("mongodb+srv://blogadmin:blogadmin@cluster0.qgghli6.mongodb.net/Blog?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
