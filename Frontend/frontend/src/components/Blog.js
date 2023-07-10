@@ -22,7 +22,7 @@ const Blog = ({ title, description, imageURL, userName, isUser, id }) => {
   };
   const deleteRequest = async () => {
     const res = await axios
-      .delete(`https://oju-s-blogs.vercel.app/api/blog/${id}`)
+      .delete(`https://oju-blog-backend.onrender.com/api/blog/${id}`)
       .catch((err) => console.log(err));
     const data = await res.data;
     return data;

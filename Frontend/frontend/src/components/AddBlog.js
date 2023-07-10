@@ -21,7 +21,7 @@ const AddBlog = () => {
   };
   const sendRequest = async () => {
     const res = await axios
-      .post("https://oju-s-blogs.vercel.app/api/blog/add", {
+      .post("https://oju-blog-backend.onrender.com/api/blog/add", {
         title: inputs.title,
         description: inputs.description,
         image: inputs.imageURL,
