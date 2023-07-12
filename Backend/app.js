@@ -15,7 +15,7 @@ app.use("/api/blog", blogRouter);
 
 // Enable cors middleware
 app.use(cors({
-  origin: 'https://oju-blogs.vercel.app/'
+  origin: 'https://oju-blogs.vercel.app'
 }));
 
 // Add headers to allow cross-origin requests
