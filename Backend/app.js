@@ -10,8 +10,8 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use("/api/user", router);
-app.use("/api/blog", blogRouter);
+app.use("/api/user",cors(), router);
+app.use("/api/blog",cors(), blogRouter);
 
 // Enable cors middleware
 app.use(cors({
