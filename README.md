@@ -11,6 +11,12 @@ A full MERN Stack Blogging website to write out yourself
 ![Screenshot 2023-02-22 135056](https://user-images.githubusercontent.com/90605717/220563760-257209c7-a8d8-458e-95b2-54477b62e1b2.png)
 
 # Tech Stack Used
-Frontend - ReactJS and Material UI
+Frontend - ReactJS, Material UI, Redux
 
 Backend - NodeJS, ExpressJS, MongoDB
+
+# Hacktoberfest Guidelines
+
+- Before making any PR please
+- Try to make quality PRs
+- Just enjoy your Opensource journey
