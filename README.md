@@ -1,4 +1,4 @@
-# Oju's Blogs
+# Welcome to Oju's Blogs
 A full MERN Stack Blogging website to write out yourself
 
 # Some Snaps of website
