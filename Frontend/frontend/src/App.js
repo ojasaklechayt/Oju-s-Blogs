@@ -10,6 +10,9 @@ import Auth from "./components/Auth";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./store";
 import LandingPage from "./components/LandingPage";
+
+import Footer from "./Footer";
+
 function App() {
   const dispath = useDispatch();
 
@@ -40,7 +43,9 @@ function App() {
           )}
         </Routes>
       </main>
+      <Footer/>
     </React.Fragment>
+    
   );
 }
 
