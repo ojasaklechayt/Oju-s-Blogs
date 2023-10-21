@@ -5,6 +5,28 @@ import { useDispatch } from "react-redux";
 import { authActions } from "../store";
 import { useNavigate } from "react-router-dom";
 
+const containerStyle = {
+  backgroundImage:'linear-gradient(180deg, rgb(237, 237, 113), rgb(236, 108, 108))'
+};
+
+const customButtonStyle = {
+  padding: '10px 20px',
+  background: '#007bff',
+  color: '#fff',
+  border: 'none',
+  borderRadius: '5px',
+  cursor: 'pointer',
+  transition: 'box-shadow 0.13s ease',
+};
+
+const customButtonHoverStyle = {
+  '&:hover': {
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
+    backgroundColor: 'orange',
+  },
+};
+
+
 const Auth = () => {
   const naviagte = useNavigate();
   const dispath = useDispatch();
@@ -50,7 +72,7 @@ const Auth = () => {
     }
   };
   return (
-    <div>
+    <div style={containerStyle}>
       <form onSubmit={handleSubmit}>
         <Box
           maxWidth={400}
@@ -63,6 +85,9 @@ const Auth = () => {
           margin="auto"
           marginTop={5}
           borderRadius={5}
+         backgroundColor="white"
+
+          border='1px solid black'
         >
           <Typography variant="h2" padding={3} textAlign="center">
             {isSignup ? "Signup" : "Login"}
@@ -74,16 +99,20 @@ const Auth = () => {
               value={inputs.name}
               placeholder="Name"
               margin="normal"
+              sx={{ borderColor: 'black', borderRadius: 3 }}
             />
           )}{" "}
-          <TextField
-            name="email"
-            onChange={handleChange}
-            value={inputs.email}
-            type={"email"}
-            placeholder="Email"
-            margin="normal"
-          />
+         
+            <TextField
+              name="email"
+              onChange={handleChange}
+              value={inputs.email}
+              type="email"
+              placeholder="Email"
+              margin="normal"
+              sx={{ borderColor: 'black', borderRadius: 3 }}
+            />
+          
           <TextField
             name="password"
             onChange={handleChange}
@@ -91,18 +120,29 @@ const Auth = () => {
             type={"password"}
             placeholder="Password"
             margin="normal"
+            sx={{ borderColor: 'black', borderRadius: 3 }}
           />
           <Button
             type="submit"
             variant="contained"
-            sx={{ borderRadius: 3, marginTop: 3 }}
+            sx={{
+              borderRadius: 3,
+              marginTop: 3,
+              ...customButtonStyle, 
+              ...customButtonHoverStyle, 
+            }}
             color="warning"
           >
             Submit
           </Button>
           <Button
             onClick={() => setIsSignup(!isSignup)}
-            sx={{ borderRadius: 3, marginTop: 3 }}
+            sx={{
+              borderRadius: 3,
+              marginTop: 3,
+              ...customButtonStyle, 
+              ...customButtonHoverStyle, 
+            }}
           >
             Change To {isSignup ? "Login" : "Signup"}
           </Button>
