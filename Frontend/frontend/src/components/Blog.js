@@ -7,7 +7,10 @@ import {
   CardMedia,
   IconButton,
   Typography,
+  Container,
+  ListItem,
 } from "@mui/material";
+import { grid } from "@mui/system";
 import React from "react";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -37,11 +40,12 @@ const Blog = ({ title, description, imageURL, userName, isUser, id }) => {
       {" "}
       <Card
         sx={{
-          width: "40%",
+          width: "80%",
           margin: "auto",
           mt: 2,
+          mb: 2,
           padding: 2,
-          boxShadow: "5px 5px 10px #ccc",
+          // boxShadow: "5px 5px 10px #ccc",
           ":hover": {
             boxShadow: "10px 10px 20px #ccc",
           },

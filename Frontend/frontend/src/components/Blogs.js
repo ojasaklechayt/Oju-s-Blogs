@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Blog from "./Blog";
+import { Box, ListItem } from "@mui/material";
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState();
@@ -16,7 +17,14 @@ const Blogs = () => {
   }, []);
   console.log(blogs);
   return (
-    <div>
+    <Box
+      sx={{
+        display: "grid",
+        columnGap: 3,
+        rowGap: 1,
+        gridTemplateColumns: "repeat(2, 1fr)",
+      }}
+    >
       {blogs &&
         blogs.map((blog, index) => (
           <Blog
@@ -28,7 +36,7 @@ const Blogs = () => {
             userName={blog.user.name}
           />
         ))}
-    </div>
+    </Box>
   );
 };
 
