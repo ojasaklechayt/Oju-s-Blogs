@@ -1,33 +1,25 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store";
 import { useNavigate } from "react-router-dom";
 
-const containerStyle = {
-  backgroundImage:'linear-gradient(180deg, rgb(237, 237, 113), rgb(236, 108, 108))'
-};
 
-const customButtonStyle = {
-  padding: '10px 20px',
-  background: '#007bff',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '5px',
-  cursor: 'pointer',
-  transition: 'box-shadow 0.13s ease',
-};
-
-const customButtonHoverStyle = {
-  '&:hover': {
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
-    backgroundColor: 'orange',
-  },
-};
-
+// const containerStyle = {
+//   minHeight: "100vh",
+// };
 
 const Auth = () => {
+
+  useEffect(() => {
+    document.body.style.background = "linear-gradient(to bottom right, #ffcc66 38%, #ff6666 90%)";
+    document.body.style.height = "100vh";
+    return () => {
+      document.body.style.backgroundColor = "";
+    };
+  }, []);
+
   const naviagte = useNavigate();
   const dispath = useDispatch();
   const [inputs, setInputs] = useState({
@@ -50,7 +42,6 @@ const Auth = () => {
         password: inputs.password,
       })
       .catch((err) => console.log(err));
-
     const data = await res.data;
     console.log(data);
     return data;
@@ -72,7 +63,7 @@ const Auth = () => {
     }
   };
   return (
-    <div style={containerStyle}>
+    <div  >
       <form onSubmit={handleSubmit}>
         <Box
           maxWidth={400}
@@ -85,9 +76,7 @@ const Auth = () => {
           margin="auto"
           marginTop={5}
           borderRadius={5}
-         backgroundColor="white"
-
-          border='1px solid black'
+          backgroundColor="white"
         >
           <Typography variant="h2" padding={3} textAlign="center">
             {isSignup ? "Signup" : "Login"}
@@ -102,17 +91,17 @@ const Auth = () => {
               sx={{ borderColor: 'black', borderRadius: 3 }}
             />
           )}{" "}
-         
-            <TextField
-              name="email"
-              onChange={handleChange}
-              value={inputs.email}
-              type="email"
-              placeholder="Email"
-              margin="normal"
-              sx={{ borderColor: 'black', borderRadius: 3 }}
-            />
-          
+
+          <TextField
+            name="email"
+            onChange={handleChange}
+            value={inputs.email}
+            type="email"
+            placeholder="Email"
+            margin="normal"
+            sx={{ borderColor: 'black', borderRadius: 3 }}
+          />
+
           <TextField
             name="password"
             onChange={handleChange}
@@ -125,24 +114,14 @@ const Auth = () => {
           <Button
             type="submit"
             variant="contained"
-            sx={{
-              borderRadius: 3,
-              marginTop: 3,
-              ...customButtonStyle, 
-              ...customButtonHoverStyle, 
-            }}
             color="warning"
+            sx={{ borderRadius: 3, marginTop: 3 }}
           >
             Submit
           </Button>
           <Button
             onClick={() => setIsSignup(!isSignup)}
-            sx={{
-              borderRadius: 3,
-              marginTop: 3,
-              ...customButtonStyle, 
-              ...customButtonHoverStyle, 
-            }}
+            sx={{ borderRadius: 3, marginTop: 3 }}
           >
             Change To {isSignup ? "Login" : "Signup"}
           </Button>
