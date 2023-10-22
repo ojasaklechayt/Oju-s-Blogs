@@ -4,6 +4,8 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Auth = () => {
   const naviagte = useNavigate();
@@ -20,35 +22,68 @@ const Auth = () => {
       [e.target.name]: e.target.value,
     }));
   };
+
   const sendRequest = async (type = "login") => {
-    const res = await axios
-      .post(`https://oju-blog-backend.onrender.com/api/user/${type}`, {
+    try {
+      const res = await axios.post(`https://oju-blog-backend.onrender.com/api/user/${type}`, {
         name: inputs.name,
         email: inputs.email,
         password: inputs.password,
-      })
-      .catch((err) => console.log(err));
+      });
 
-    const data = await res.data;
-    console.log(data);
-    return data;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(inputs);
-    if (isSignup) {
-      sendRequest("signup")
-        .then((data) => localStorage.setItem("userId", data.user._id))
-        .then(() => dispath(authActions.login()))
-        .then(() => naviagte("/blogs"));
-    } else {
-      sendRequest()
-        .then((data) => localStorage.setItem("userId", data.user._id))
-        .then(() => dispath(authActions.login()))
-        .then(() => naviagte("/blogs"));
+      const data = res.data;
+      return data;
+    } catch (error) {
+      if (error.response) {
+        const errorMessage = error.response.data.message;
+        toast.error(errorMessage);
+      } else if (error.request) {
+        toast.error('No response from the server');
+      } else {
+        toast.error('An error occurred while sending the request');
+      }
+      throw error;
     }
   };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let isError = false;
+  
+    if (isSignup && !inputs.name) {
+      toast.error('Please enter your name');
+      isError = true;
+    }
+  
+    if (!inputs.email) {
+      toast.error('Please enter your email');
+      isError = true;
+    }
+  
+    if (!inputs.password) {
+      toast.error('Please enter your password');
+      isError = true;
+    }
+  
+    if (isError) {
+      return;
+    }
+  
+    try {
+      const data = isSignup ? await sendRequest('signup') : await sendRequest();
+      localStorage.setItem('userId', data.user._id);
+      dispath(authActions.login());
+      naviagte('/blogs');
+    } catch (error) {
+      toast.error(error);
+      console.log( "an error ocurred" + error);
+      console.error(error);
+
+    }
+  };
+
+  
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -75,7 +110,7 @@ const Auth = () => {
               placeholder="Name"
               margin="normal"
             />
-          )}{" "}
+          )}
           <TextField
             name="email"
             onChange={handleChange}
@@ -108,6 +143,19 @@ const Auth = () => {
           </Button>
         </Box>
       </form>
+
+      
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
