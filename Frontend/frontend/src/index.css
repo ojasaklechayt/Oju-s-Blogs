@@ -1,17 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Roboto:wght@500&display=swap");
 * {
   margin: 0;
+  padding: 0%;
+  box-sizing: border-box;
 }
 
 footer{
-  background-color: aquamarine;
+  background-color:rgb(111, 158, 245);
   width: 100%;
   height: 5rem;
-  background: linear-gradient(90deg, rgba(103, 26, 162 ,
-  0.9417016806722689) 0%, rgba(179, 29, 253,0.8996848739495799)
-   50%, rgba(208,133,208,0.9136904761904762) 100%);
-
-box-shadow: 2px 2px 5px 2px black;
+  margin-bottom: 0% !important;
+  position: absolute;
+  top: 100%;
 }
 
 .developedby{
@@ -25,27 +25,20 @@ margin-left: 5%;
 
 a{
 padding:2%  1% 1% 0;
-color:white;
+color:black;
 font-weight:bolder;
 
 text-decoration: none;
 font-size: 19px;
-
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-a:hover{
-  color: black;
-
+.colorchange:hover{
+color: white;
 }
 
-.community{
-font-weight: bolder;
-  color: black;
 
-}
-.community:hover{
-  color: white;
-}
+
 
 @media (max-width:650px) {
   .developedby{
