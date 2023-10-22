@@ -1,8 +1,14 @@
-import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
+import { Box, Button, InputLabel, TextField, Typography, Stack } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStyles } from "./utils";
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { styled } from '@mui/material/styles';
+const Input = styled('input')({
+  display: 'none',
+});
+
 
 const labelStyles = { mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold" };
 const AddBlog = () => {
@@ -12,13 +18,39 @@ const AddBlog = () => {
     title: "",
     description: "",
     imageURL: "",
+    imageTitle: ""
   });
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file)
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      }
+      fileReader.onerror = (error) => {
+        reject(error);
+      }
+    })
+  }
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
+
+  const handleImageUpload = async (e) => {
+
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file)
+    console.log(base64)
+    setInputs((prevState) => ({
+      ...prevState,
+      imageURL: base64,
+      imageTitle: file.name,
+    }));
+  }
+  console.log(inputs)
   const sendRequest = async () => {
     const res = await axios
       .post("https://oju-blog-backend.onrender.com/api/blog/add", {
@@ -31,6 +63,7 @@ const AddBlog = () => {
     const data = await res.data;
     return data;
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs);
@@ -51,7 +84,7 @@ const AddBlog = () => {
           marginTop={3}
           display="flex"
           flexDirection={"column"}
-          width={"80%"}
+          width={"fit-content"}
         >
           <Typography
             className={classes.font}
@@ -84,18 +117,23 @@ const AddBlog = () => {
             value={inputs.description}
             margin="auto"
             variant="outlined"
+            multiline
+            minRows={2}
           />
           <InputLabel className={classes.font} sx={labelStyles}>
-            ImageURL
+            Image Upload
           </InputLabel>
-          <TextField
-            className={classes.font}
-            name="imageURL"
-            onChange={handleChange}
-            value={inputs.imageURL}
-            margin="auto"
-            variant="outlined"
-          />
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <label htmlFor="contained-button-file">
+              <Input accept="image/*" id="contained-button-file" name="imageURL" type="file" onChange={handleImageUpload} />
+              <Button variant="contained" component="span" endIcon={
+                <PhotoCamera />
+              }>
+                Upload
+              </Button>
+            </label>
+            <Typography variant="caption">{inputs.imageTitle}</Typography>
+          </Stack>
           <Button
             sx={{ mt: 2, borderRadius: 4 }}
             variant="contained"
