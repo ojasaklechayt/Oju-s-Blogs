@@ -61,7 +61,7 @@ const Auth = () => {
       isError = true;
     }
   
-    if (isSignup && (inputs.name.match(allspace) || !inputs.name.match(nameReg))) {
+    else if (isSignup && (inputs.name.match(allspace) || !inputs.name.match(nameReg))) {
       toast.error('Please enter valid name');
       isError = true;
     }
@@ -71,7 +71,7 @@ const Auth = () => {
       isError = true;
     }
 
-    if (!inputs.email.match(mailReg)) {
+    else if (!inputs.email.match(mailReg)) {
       toast.error('Please enter valid email');
       isError = true;
     }
@@ -81,7 +81,7 @@ const Auth = () => {
       isError = true;
     }
 
-    if (isSignup && !inputs.password.match(passReg)) {
+    else if (isSignup && !inputs.password.match(passReg)) {
       toast.error('Please enter strong password');
       isError = true;
     }
