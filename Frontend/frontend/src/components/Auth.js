@@ -81,8 +81,8 @@ const Auth = () => {
       isError = true;
     }
 
-    if (!inputs.password.match(passReg)) {
-      toast.error('Please enter valid password');
+    if (isSignup && !inputs.password.match(passReg)) {
+      toast.error('Please enter strong password');
       isError = true;
     }
   
