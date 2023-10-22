@@ -11,6 +11,7 @@ const Input = styled('input')({
 
 
 const labelStyles = { mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold" };
+
 const AddBlog = () => {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const AddBlog = () => {
     imageURL: "",
     imageTitle: ""
   });
+
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -32,12 +34,14 @@ const AddBlog = () => {
       }
     })
   }
+
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
+
 
   const handleImageUpload = async (e) => {
 
@@ -51,6 +55,7 @@ const AddBlog = () => {
     }));
   }
   console.log(inputs)
+
   const sendRequest = async () => {
     const res = await axios
       .post("https://oju-blog-backend.onrender.com/api/blog/add", {
@@ -64,16 +69,42 @@ const AddBlog = () => {
     return data;
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs);
     sendRequest()
       .then((data) => console.log(data))
       .then(() => navigate("/blogs"));
+    
+  const validateImage = () => {
+    const image = new Image();
+    image.src = inputs.imageURL;
+
+    image.onload = function () {
+      if (image.width > 0 && image.height > 0) {
+        // Image is valid, proceed with form submission
+        handleSubmit();
+      } else {
+        alert("Invalid image URL. Please provide a valid image.");
+      }
+    };
+
+    image.onerror = function () {
+      alert("Error loading image. Please provide a valid image URL.");
+    };
   };
+
+  const handleSubmit = () => {
+    sendRequest().then((data) => {
+      console.log(data);
+      navigate("/blogs");
+    });
+  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => e.preventDefault()}>
         <Box
           border={3}
           borderColor="linear-gradient(90deg, rgba(58,75,180,1) 2%, rgba(116,49,110,1) 36%, rgba(2,0,161,1) 73%, rgba(69,92,252,1) 100%)"
@@ -139,6 +170,7 @@ const AddBlog = () => {
             variant="contained"
             color="secondary"
             type="submit"
+            onClick={validateImage} // Validate the image before submitting
           >
             Submit
           </Button>
