@@ -9,28 +9,19 @@ dotenv.config();
 
 const app = express();
 
-app.use(express.json());
-app.use("/api/user",cors(), router);
-app.use("/api/blog",cors(), blogRouter);
-
 // Enable cors middleware
 app.use(cors({
-  origin: 'https://oju-blogs.vercel.app'
+  origin: 'https://oju-blogs.vercel.app', // Update with your frontend URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // Include if you need to handle cookies
 }));
 
-// Add headers to allow cross-origin requests
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  next();
-});
+app.use(express.json());
+app.use("/api/user", router);
+app.use("/api/blog", blogRouter);
 
 mongoose
-  .connect("mongodb+srv://blogadmin:blogadmin@cluster0.qgghli6.mongodb.net/Blog?retryWrites=true&w=majority", {
+  .connect("mongodb+srv://blogadmin:blogadmin@cluster0.qgghli6.mongodb.net/Blog?retryWrites=true&w=majority", { // Use the MONGODB_URI from your .env file
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -40,7 +31,7 @@ mongoose
     });
   })
   .catch((err) => {
-    console.log(err);
+    console.error(err);
     process.exit(1);
   });
 
