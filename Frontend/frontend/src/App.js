@@ -10,7 +10,7 @@ import Auth from "./components/Auth";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./store";
 import LandingPage from "./components/LandingPage";
-
+import BackToTopButton from "./components/BackToTop";
 import Footer from "./Footer";
 
 function App() {
@@ -47,9 +47,8 @@ function App() {
         </Routes>
 
       </main>
+        <BackToTopButton/>
        <Footer/>
-
-       
 
 
     </React.Fragment>
