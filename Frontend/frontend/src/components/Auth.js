@@ -16,6 +16,11 @@ const Auth = () => {
     password: "",
   });
   const [isSignup, setIsSignup] = useState(false);
+  const mailReg = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
+  const nameReg = /^[A-Za-z\s'-]+$/;
+  const allspace = /^\s*$/;
+  const passReg = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&+=*!])[A-Za-z\d@#$%^&+=*!]{8,}$/;
+
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -56,13 +61,28 @@ const Auth = () => {
       isError = true;
     }
   
+    else if (isSignup && (inputs.name.match(allspace) || !inputs.name.match(nameReg))) {
+      toast.error('Please enter valid name');
+      isError = true;
+    }
+
     if (!inputs.email) {
       toast.error('Please enter your email');
+      isError = true;
+    }
+
+    else if (!inputs.email.match(mailReg)) {
+      toast.error('Please enter valid email');
       isError = true;
     }
   
     if (!inputs.password) {
       toast.error('Please enter your password');
+      isError = true;
+    }
+
+    else if (isSignup && !inputs.password.match(passReg)) {
+      toast.error('Please enter strong password');
       isError = true;
     }
   
