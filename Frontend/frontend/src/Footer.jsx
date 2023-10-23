@@ -8,9 +8,9 @@ const Footer = () => {
             <div className="developedby">
 
               <a href="https://github.com/ojasaklechayt">
-              Developed in Open Source by <span className='colorchange'>Ojas Aklecha </span>  </a>
+              Developed in Open Source by <span className='colorchange'>Ojas Aklecha </span></a>and
 
-<a href="https://github.com/ojasaklechayt/Oju-s-Blogs"><span className='colorchange'>and Community</span></a>
+<a href="https://github.com/ojasaklechayt/Oju-s-Blogs"><span className='colorchange'> Community</span></a>
             </div>
         </footer>
     </>
