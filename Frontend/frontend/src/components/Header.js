@@ -23,11 +23,11 @@ const Header = () => {
       position="sticky"
       sx={{
         background:
-          "linear-gradient(90deg, rgba(238,98,12,0.9417016806722689) 0%, rgba(253,145,29,0.8996848739495799) 50%, rgba(252,238,69,0.9136904761904762) 100%)",
+          "linear-gradient(90deg, rgba(103, 26, 162 ,0.9417016806722689) 0%, rgba(179, 29, 253,0.8996848739495799) 50%, rgba(208,133,208,0.9136904761904762) 100%)",
       }}
     >
       <Toolbar>
-        <Typography sx={{fontFamily:"monospace"}} variant="h5">
+        <Typography sx={{ fontFamily: "monospace" }} variant="h5">
           Oju's Blogs
         </Typography>
         {isLoggedIn && (
@@ -67,7 +67,7 @@ const Header = () => {
                 to="/auth"
                 variant="contained"
                 sx={{ margin: 1, borderRadius: 10 }}
-                color="warning"
+                color="secondary"
               >
                 Login / Signup
               </Button>
@@ -80,7 +80,7 @@ const Header = () => {
               to="/auth"
               variant="contained"
               sx={{ margin: 1, borderRadius: 10 }}
-              color="warning"
+              color="secondary"
             >
               Logout
             </Button>

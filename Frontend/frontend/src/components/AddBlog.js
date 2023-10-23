@@ -99,7 +99,7 @@ const AddBlog = () => {
           <Button
             sx={{ mt: 2, borderRadius: 4 }}
             variant="contained"
-            color="warning"
+            color="secondary"
             type="submit"
           >
             Submit
