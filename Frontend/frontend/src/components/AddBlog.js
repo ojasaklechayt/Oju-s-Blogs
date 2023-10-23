@@ -1,16 +1,11 @@
-import { Box, Button, InputLabel, TextField, Typography, Stack } from "@mui/material";
+import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStyles } from "./utils";
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import { styled } from '@mui/material/styles';
-const Input = styled('input')({
-  display: 'none',
-});
-
 
 const labelStyles = { mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold" };
+
 const AddBlog = () => {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -18,20 +13,8 @@ const AddBlog = () => {
     title: "",
     description: "",
     imageURL: "",
-    imageTitle: ""
   });
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file)
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      }
-      fileReader.onerror = (error) => {
-        reject(error);
-      }
-    })
-  }
+
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -39,18 +22,6 @@ const AddBlog = () => {
     }));
   };
 
-  const handleImageUpload = async (e) => {
-
-    const file = e.target.files[0];
-    const base64 = await convertBase64(file)
-    console.log(base64)
-    setInputs((prevState) => ({
-      ...prevState,
-      imageURL: base64,
-      imageTitle: file.name,
-    }));
-  }
-  console.log(inputs)
   const sendRequest = async () => {
     const res = await axios
       .post("https://oju-blog-backend.onrender.com/api/blog/add", {
@@ -64,16 +35,34 @@ const AddBlog = () => {
     return data;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(inputs);
-    sendRequest()
-      .then((data) => console.log(data))
-      .then(() => navigate("/blogs"));
+  const validateImage = () => {
+    const image = new Image();
+    image.src = inputs.imageURL;
+
+    image.onload = function () {
+      if (image.width > 0 && image.height > 0) {
+        // Image is valid, proceed with form submission
+        handleSubmit();
+      } else {
+        alert("Invalid image URL. Please provide a valid image.");
+      }
+    };
+
+    image.onerror = function () {
+      alert("Error loading image. Please provide a valid image URL.");
+    };
   };
+
+  const handleSubmit = () => {
+    sendRequest().then((data) => {
+      console.log(data);
+      navigate("/blogs");
+    });
+  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => e.preventDefault()}>
         <Box
           border={3}
           borderColor="linear-gradient(90deg, rgba(58,75,180,1) 2%, rgba(116,49,110,1) 36%, rgba(2,0,161,1) 73%, rgba(69,92,252,1) 100%)"
@@ -84,7 +73,7 @@ const AddBlog = () => {
           marginTop={3}
           display="flex"
           flexDirection={"column"}
-          width={"fit-content"}
+          width={"80%"}
         >
           <Typography
             className={classes.font}
@@ -117,28 +106,24 @@ const AddBlog = () => {
             value={inputs.description}
             margin="auto"
             variant="outlined"
-            multiline
-            minRows={2}
           />
           <InputLabel className={classes.font} sx={labelStyles}>
-            Image Upload
+            ImageURL
           </InputLabel>
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <label htmlFor="contained-button-file">
-              <Input accept="image/*" id="contained-button-file" name="imageURL" type="file" onChange={handleImageUpload} />
-              <Button variant="contained" component="span" endIcon={
-                <PhotoCamera />
-              }>
-                Upload
-              </Button>
-            </label>
-            <Typography variant="caption">{inputs.imageTitle}</Typography>
-          </Stack>
+          <TextField
+            className={classes.font}
+            name="imageURL"
+            onChange={handleChange}
+            value={inputs.imageURL}
+            margin="auto"
+            variant="outlined"
+          />
           <Button
             sx={{ mt: 2, borderRadius: 4 }}
             variant="contained"
             color="secondary"
             type="submit"
+            onClick={validateImage} // Validate the image before submitting
           >
             Submit
           </Button>
