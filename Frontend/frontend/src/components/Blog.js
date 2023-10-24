@@ -12,7 +12,7 @@ import React from "react";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../API/API";
 import { useStyles } from "./utils";
 const Blog = ({ title, description, imageURL, userName, isUser, id }) => {
   const classes = useStyles();
@@ -21,11 +21,12 @@ const Blog = ({ title, description, imageURL, userName, isUser, id }) => {
     navigate(`/myBlogs/${id}`);
   };
   const deleteRequest = async () => {
-    const res = await axios
-      .delete(`https://oju-blog-backend.onrender.com/api/blog/${id}`)
-      .catch((err) => console.log(err));
-    const data = await res.data;
-    return data;
+    try {
+      const data = await API.deleteBlog(id)
+      return data;
+    } catch (err) {
+      console.log(err.message);
+    }
   };
   const handleDelete = () => {
     deleteRequest()

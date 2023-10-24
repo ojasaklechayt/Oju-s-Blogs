@@ -1,16 +1,16 @@
 import { Button, InputLabel, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import API from "../API/API";
 import { useNavigate, useParams } from "react-router-dom";
 const labelStyles = { mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold" };
 
 const BlogDetail = () => {
   const navigate = useNavigate();
   const [blog, setBlog] = useState();
-  const id = useParams().id;
-  console.log(id);
   const [inputs, setInputs] = useState({});
+  const { id } = useParams();
+  console.log(id);
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -18,11 +18,12 @@ const BlogDetail = () => {
     }));
   };
   const fetchDetails = async () => {
-    const res = await axios
-      .get(`https://oju-blog-backend.onrender.com/api/blog/${id}`)
-      .catch((err) => console.log(err));
-    const data = await res.data;
-    return data;
+    try {
+      const data = await API.getBlogsById(id);
+      return data;
+    } catch (err) {
+      console.log(err)
+    }
   };
   useEffect(() => {
     fetchDetails().then((data) => {
@@ -34,20 +35,20 @@ const BlogDetail = () => {
     });
   }, [id]);
   const sendRequest = async () => {
-    const res = await axios
-      .put(`http://localhost:5000/api/blog/update/${id}`, {
+    try {
+      const data = await API.editBlog(id, {
         title: inputs.title,
         description: inputs.description,
       })
-      .catch((err) => console.log(err));
-
-    const data = await res.data;
-    return data;
+      return data;
+    } catch (err) {
+      console.log(err)
+    }
   };
-  console.log(blog);
+  // console.log(blog);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputs);
+    // console.log(inputs);
     sendRequest()
       .then((data) => console.log(data))
       .then(() => navigate("/myBlogs/"));
