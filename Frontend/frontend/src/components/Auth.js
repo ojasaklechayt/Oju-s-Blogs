@@ -1,11 +1,11 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import API from "../API/API";
 
 const Auth = () => {
   const naviagte = useNavigate();
@@ -28,15 +28,10 @@ const Auth = () => {
     }));
   };
 
-  const sendRequest = async (type = "login") => {
+  const sendRequest = async (type) => {
     try {
-      const res = await axios.post(`https://oju-blog-backend.onrender.com/api/user/${type}`, {
-        name: inputs.name,
-        email: inputs.email,
-        password: inputs.password,
-      });
-
-      const data = res.data;
+      const data = await API.auth(inputs, type)
+      console.log(data)
       return data;
     } catch (error) {
       if (error.response) {
@@ -55,12 +50,12 @@ const Auth = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let isError = false;
-  
+
     if (isSignup && !inputs.name) {
       toast.error('Please enter your name');
       isError = true;
     }
-  
+
     else if (isSignup && (inputs.name.match(allspace) || !inputs.name.match(nameReg))) {
       toast.error('Please enter valid name');
       isError = true;
@@ -75,7 +70,7 @@ const Auth = () => {
       toast.error('Please enter valid email');
       isError = true;
     }
-  
+
     if (!inputs.password) {
       toast.error('Please enter your password');
       isError = true;
@@ -85,25 +80,25 @@ const Auth = () => {
       toast.error('Please enter strong password');
       isError = true;
     }
-  
+
     if (isError) {
       return;
     }
-  
+
     try {
-      const data = isSignup ? await sendRequest('signup') : await sendRequest();
+      const data = isSignup ? await sendRequest('signup') : await sendRequest("login");
       localStorage.setItem('userId', data.user._id);
       dispath(authActions.login());
       naviagte('/blogs');
     } catch (error) {
       toast.error(error);
-      console.log( "an error ocurred" + error);
+      console.log("an error ocurred" + error);
       console.error(error);
 
     }
   };
 
-  
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -164,7 +159,7 @@ const Auth = () => {
         </Box>
       </form>
 
-      
+
       <ToastContainer
         position="bottom-right"
         autoClose={5000}

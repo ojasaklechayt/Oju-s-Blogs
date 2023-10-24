@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Blog from "./Blog";
+import API from "../API/API";
 const UserBlogs = () => {
   const [user, setUser] = useState();
   const id = localStorage.getItem("userId");
   const sendRequest = async () => {
-    const res = await axios
-      .get(`https://oju-blog-backend.onrender.com/api/blog/user/${id}`)
-      .catch((err) => console.log(err));
-    const data = await res.data;
-    return data;
+    try {
+      const data = await API.getBlogsByUserId(id)
+      return data;
+    } catch (err) {
+      console.log(err)
+    }
   };
   useEffect(() => {
     sendRequest().then((data) => setUser(data.user));

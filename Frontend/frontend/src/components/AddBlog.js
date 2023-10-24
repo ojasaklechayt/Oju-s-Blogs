@@ -1,10 +1,11 @@
 import { Box, Button, InputLabel, TextField, Typography, Stack } from "@mui/material";
-import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStyles } from "./utils";
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { styled } from '@mui/material/styles';
+import API from "../API/API";
+
 const Input = styled('input')({
   display: 'none',
 });
@@ -52,16 +53,18 @@ const AddBlog = () => {
   }
   console.log(inputs)
   const sendRequest = async () => {
-    const res = await axios
-      .post("https://oju-blog-backend.onrender.com/api/blog/add", {
+    try {
+      const data = await API.addBlog({
         title: inputs.title,
         description: inputs.description,
         image: inputs.imageURL,
         user: localStorage.getItem("userId"),
       })
-      .catch((err) => console.log(err));
-    const data = await res.data;
-    return data;
+      console.log(data)
+      return data;
+    } catch (err) {
+      console.log(err)
+    }
   };
 
   const handleSubmit = (e) => {

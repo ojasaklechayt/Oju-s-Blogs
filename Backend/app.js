@@ -16,7 +16,7 @@ app.use(cors({
   credentials: true, // Include if you need to handle cookies
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: "1000kb" }));
 app.use("/api/user", router);
 app.use("/api/blog", blogRouter);
 
