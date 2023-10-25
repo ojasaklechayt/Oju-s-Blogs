@@ -134,6 +134,19 @@ const Auth = () => {
             placeholder="Email"
             margin="normal"
           />
+          {
+            isSignup && <p className="pass_inst">
+              Password must have atleast: <br/>
+              <ul>
+                <li>one uppercase,</li>
+                <li>one lowercase,</li>
+                <li>one digit,</li>
+                <li>one special character,</li>
+                <li>length 8 or more</li>
+              </ul>
+            </p>
+          }
+
           <TextField
             name="password"
             onChange={handleChange}

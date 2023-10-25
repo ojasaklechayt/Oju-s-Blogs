@@ -9,6 +9,7 @@ footer{
   background-color:#A942CC;
   width: 100%;
   height: 5rem;
+  margin-top: 100px;
   margin-bottom: 0% !important;
   position: absolute;
   top: 100%;
@@ -37,6 +38,22 @@ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 color: white;
 }
 
+.pass_inst{
+  color: purple;
+  margin-top: 5px;
+  font-size: 14px;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  background-color: rgb(247, 239, 247);
+  border: solid 1px rgb(128, 0, 128);
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.pass_inst ul{
+  list-style-type:none;
+  padding:5px 0 0 10px ;
+  font-size: 13px;
+}
 
 
 
