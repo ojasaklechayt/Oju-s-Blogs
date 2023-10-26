@@ -47,8 +47,9 @@ function App() {
         </Routes>
 
       </main>
+      <Footer/>
         <BackToTopButton/>
-       <Footer/>
+    
 
 
     </React.Fragment>

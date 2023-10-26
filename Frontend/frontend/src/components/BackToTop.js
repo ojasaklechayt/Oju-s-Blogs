@@ -5,7 +5,7 @@ const StyledBackToTopButton = styled.button`
   position: fixed;
   bottom: 50px;
   right: 20px;
-  background-color: #A942CC;
+  background-color:skyblue;
   color: #fff;
   width: 50px; /* Set the width and height to make the button circular */
   height: 50px;
@@ -17,7 +17,7 @@ const StyledBackToTopButton = styled.button`
   line-height: 50px;
   font-weight: 700; /* Increase the font weight for a bolder arrow */
   outline: none; /* Remove focus outline for better aesthetics */
-
+   z-index:999;
   &:hover {
     background-color: #D085D0E9;
   }
@@ -27,7 +27,7 @@ function BackToTopButton() {
   const [showButton, setShowButton] = useState(false);
 
   const handleScroll = () => {
-    if (window.pageYOffset > 100) {
+    if (window.pageYOffset > 70) {
       setShowButton(true);
     } else {
       setShowButton(false);

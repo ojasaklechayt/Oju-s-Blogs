@@ -109,9 +109,10 @@ const Auth = () => {
           alignItems="center"
           justifyContent={"center"}
           boxShadow="10px 10px 20px #ccc"
-          padding={3}
+          padding={8}
           margin="auto"
           marginTop={5}
+          marginBottom={5}
           borderRadius={5}
         >
           <Typography variant="h2" padding={3} textAlign="center">
