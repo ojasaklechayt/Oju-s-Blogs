@@ -7,8 +7,7 @@ const LandingPage = () => {
       <div
         style={{
           background:
-            "linear-gradient(to bottom right, rgb(246, 102, 255) 38%, rgb(49,10,123) 90%)",
-          height: "730px",
+            "linear-gradient(to bottom right, rgb(246, 102, 255) 38%, rgb(49,10,123) 90%)"
         }}
       >
         <div
