@@ -5,7 +5,7 @@ const StyledBackToTopButton = styled.button`
   position: fixed;
   bottom: 50px;
   right: 20px;
-  background-color:skyblue;
+  background-color:#d26df4;
   color: #fff;
   width: 50px; /* Set the width and height to make the button circular */
   height: 50px;
