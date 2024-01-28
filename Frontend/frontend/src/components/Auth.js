@@ -19,7 +19,7 @@ const Auth = () => {
   const mailReg = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
   const nameReg = /^[A-Za-z\s'-]+$/;
   const allspace = /^\s*$/;
-  const passReg = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&+=*!])[A-Za-z\d@#$%^&+=*!]{8,}$/;
+  const passReg = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
 
   const handleChange = (e) => {
     setInputs((prevState) => ({
@@ -138,11 +138,11 @@ const Auth = () => {
             isSignup && <p className="pass_inst">
               Password must have atleast: <br/>
               <ul>
-                <li>one uppercase,</li>
-                <li>one lowercase,</li>
-                <li>one digit,</li>
-                <li>one special character,</li>
-                <li>length 8 or more</li>
+                <li>One uppercase [A-Z]</li>
+                <li>One lowercase [a-z]</li>
+                <li>One digit [0-9]</li>
+                <li>One special character [@$!%*?&#]</li>
+                <li>Length 8 or more</li>
               </ul>
             </p>
           }
